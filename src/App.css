@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+.footer {
+
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(46, 15, 15);
+  color: white;
+  justify-content: left;
+  padding-left: 100px ;
+  display: flex;
+}
+.header{
+
+  margin-bottom:100px ;
+}
+.main{
+
+  margin-top: 50px;
+padding-left:10px ;
+}
