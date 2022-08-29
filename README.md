@@ -7,7 +7,7 @@
 ## Getting Started
 only copy the link and download it
 ## Architecture
-react and bootstrap
+react and bootstrap api
 
 ## Change Log
 
@@ -20,10 +20,10 @@ react and bootstrap
 
 Name of feature: city-explorer
 
-Estimate of time needed to complete:3h
+Estimate of time needed to complete:5h
 
 Start time: 3
 
-Finish time: 6
+Finish time: 8
 
-Actual time needed to complete: 6:38
+Actual time needed to complete: 12
