@@ -2,14 +2,17 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 export class Weather extends Component {
   constructor(){
     super()
     this.state={
       errFlag:false,
       description:"",
-      date: ""
+      date: "",
+      array:[] 
     }
   }
   handelSubnmit= async (e)=>{
@@ -19,14 +22,14 @@ let longitude=e.target.longitude.value
 let latitude=e.target.latitude.value
 let url=`${process.env.REACT_APP_URL}weather?name=${city}&lon=${longitude}&lat=${latitude}`
 console.log(url)
-//localhost:3000/weather?name=cityname&lon=lon&lat=lat
+//http://localhost:3100/weather?name=cityname&lon=lon&lat=lat
+//https://firstweatheerapp.herokuapp.com/weather?name=cityname&lon=lon&lat=lat
 try {
 let result= await axios.get(url);
 let data=result.data
 console.log(data)
 this.setState({
-  description:data.data[0].weather.description,
-    date:data.data[0].datetime
+  array: data
 })
 }
 catch{
@@ -37,8 +40,10 @@ catch{
   }
   render() {
     return (
-        <Form onSubmit={this.handelSubnmit}>
+      
+        <Form onSubmit={this.handelSubnmit} className='formWeather'>
         <Form.Group className="mb-3" controlId="formBasicEmail">
+        <h1>Weather</h1>
           <Form.Control type="text" placeholder="Enter the city" name="city" />
           <Form.Text className="text-muted">
            
@@ -52,18 +57,37 @@ catch{
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Control type="text" placeholder="Enter the latitude" name="latitude" />
-          <Form.Text className="text-muted">
-         
-          </Form.Text>
+          
         </Form.Group>
-        {this.state.errFlag && <h4>Error : sorry something went wrong!</h4>}
-       <p>description:{this.state.description} </p>
-        <p> date:{this.state.date}</p>
+      
         <Button variant="primary" type="submit">
           Submit
         </Button>
-        {this.state.errFlag && <h4>Error : sorry something went wrong!</h4>}
-      </Form>
+        { this.state.errFlag&& <h4>Error : sorry something went wrong!</h4>}
+
+        
+        <Row xs={1} md={2} className="g-4">
+      {this.state.array.map((ele,i)=>{
+      return(
+        
+     
+        <Col>
+          <Card className='cardwither'>
+            
+            <Card.Body>
+              <Card.Title> <h1>Day{i} </h1></Card.Title>
+              <Card.Text>
+             
+        <h5>description:{ele.description}</h5>
+        <h5>date:{ele.date}</h5>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      )})} 
+    </Row>
+    
+</Form>
     )
   }
 }

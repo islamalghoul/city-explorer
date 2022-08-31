@@ -2,6 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 class App extends React.Component {
 
@@ -23,6 +26,7 @@ class App extends React.Component {
         try {
 
             let allData = await axios.get(URL)
+            //weather api
             console.log(allData)
             this.setState({
                 display_name: allData.data[0].display_name,
@@ -43,14 +47,29 @@ class App extends React.Component {
         return (
             <div className='main'>
                 <Form onSubmit={this.HandelSubmit}>
-
+                <h1>Search about your city</h1>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
 
                         <Form.Control type="text" name="city" placeholder="Enter the city" />
-                        <h3>Display name : {this.state.display_name}</h3>
-                        <p>Lon : {this.state.lon}</p>
-                        <p>Lat : {this.state.lat}</p>
-                        {this.state.mapFlag && <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.57a199bcfe225e9ac35bbf60e9947079&center=${this.state.lat},${this.state.lon}`} alt="img"></img>}
+                        <Row xs={1} md={2} className="g-4">
+      
+        <Col>
+          <Card>
+          {this.state.mapFlag && <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.57a199bcfe225e9ac35bbf60e9947079&center=${this.state.lat},${this.state.lon}`} alt="img"></img>}
+            <Card.Body>
+              <Card.Title>Card title</Card.Title>
+              <Card.Text>
+              <h3>Display name : {this.state.display_name}</h3>
+              <p>Lon : {this.state.lon}</p>
+              <p>Lat : {this.state.lat}</p>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+    
+    </Row>
+                       
+                        
                         {this.state.errFlag && <h4>Error : sorry something went wrong!</h4>}
                     </Form.Group>
                     <Button variant="primary" type="submit">
